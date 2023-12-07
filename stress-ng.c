@@ -3331,6 +3331,17 @@ static void stress_yaml_close(FILE *yaml)
 
 int main(int argc, char **argv, char **envp)
 {
+    // Initialize the MPI environment
+    MPI_Init(NULL, NULL);
+
+    // Get the number of processes
+    int world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+    // Get the rank of the process
+    int world_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
 	double duration = 0.0;			/* stressor run time in secs */
 	bool success = true;
 	bool resource_success = true;
@@ -3815,5 +3826,7 @@ exit_settings_free:
 
 exit_temp_path_free:
 	stress_temp_path_free();
+
+	MPI_Finalize();
 	exit(ret);
 }
