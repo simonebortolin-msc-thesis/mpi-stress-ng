@@ -25,8 +25,9 @@ VERSION=0.17.02
 KERNEL=$(shell uname -s)
 NODENAME=$(shell uname -n)
 
-override CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -std=gnu99 -g
+override CC = mpic++
 
+override CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -std=gnu99 -g
 #
 #  Building stress-vnni with less than -O2 causes breakage with
 #  gcc-13.2, so remove then and ensure at least -O2 is used or
@@ -628,7 +629,7 @@ stress-ng: config.h $(OBJS)
 	$(PRE_Q)echo "LD $@"
 	$(eval LINK_TOOL := $(shell if [ -n "$(shell grep '^#define HAVE_EIGEN' config.h)" ]; then echo $(CXX); else echo $(CC); fi))
 	$(eval LDFLAGS_EXTRA := $(shell grep CONFIG_LDFLAGS config | sed 's/CONFIG_LDFLAGS +=//' | tr '\n' ' '))
-	$(PRE_V)$(LINK_TOOL) $(OBJS) -lm $(LDFLAGS) $(LDFLAGS_EXTRA) -o $@
+	$(PRE_V)$(LINK_TOOL) $(OBJS) -lm $(LDFLAGS) $(LDFLAGS_EXTRA) -L/opt/openmpi/lib -o $@ -lmpi 
 
 stress-eigen-ops.o: config.h
 	@if grep -q '^#define HAVE_EIGEN' config.h; then \
