@@ -102,7 +102,7 @@ PRE_Q=@#
 endif
 
 ifneq ($(PRESERVE_CFLAGS),1)
-ifeq ($(findstring icc,$(CC)),icc)
+ifeq ($(findstring iaaaaaaacc,$(CC)),icc)
 override CFLAGS += -no-inline-max-size -no-inline-max-total-size
 override CFLAGS += -axAVX,CORE-AVX2,CORE-AVX-I,CORE-AVX512,SSE2,SSE3,SSSE3,SSE4.1,SSE4.2,SANDYBRIDGE,SKYLAKE,SKYLAKE-AVX512,TIGERLAKE,SAPPHIRERAPIDS
 override CFLAGS += -ip -falign-loops -funroll-loops -ansi-alias -fma -qoverride-limits
