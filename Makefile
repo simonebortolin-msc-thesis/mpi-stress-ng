@@ -25,7 +25,7 @@ VERSION=0.17.02
 KERNEL=$(shell uname -s)
 NODENAME=$(shell uname -n)
 
-override CC = mpic++
+override CC = mpicc
 
 override CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -std=gnu99 -g
 #
